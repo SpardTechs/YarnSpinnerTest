@@ -14,11 +14,17 @@ public class SceneDirector : MonoBehaviour {
         // get handles of utility objects in the scene that we need
         dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
         fadeLayer = FindObjectOfType<FadeLayer>();
+        // Handlers for <<fadeIn DURATION>> and <<fadeOut DURATION>>
+        dialogueRunner.AddCommandHandler<float>("fadeIn", FadeIn);
+        dialogueRunner.AddCommandHandler<float>("fadeOut", FadeOut);
 
         // <<camera NAME_OF_LOCATION>>
 
         // <<fadeIn DURATION>> and <<fadeOut DURATION>>
         Debug.Log("SceneConductor created.");
+
+        // register Command Handler for <<camera NAME_OF_LOCATION>>
+        dialogueRunner.AddCommandHandler<Location>("camera", MoveCamera);
     }
 
     // moves camera to camera location {location}>Camera in the scene
